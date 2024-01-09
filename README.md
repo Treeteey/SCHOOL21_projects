@@ -9,3 +9,5 @@ Decimal (group project) (library for +- 1*10e-28... 2e96-1 numbers with high pre
 Cat/Grep (individual project) bash standard commands and work with flags
 
 SmartCalc (individual project) - requires installed Qt6 and qmake. Builds on Windows/Linux/MacOS. On linux testes using Qt5 - Plot doesnt work correctly (works in debug mode) and expressions with X. Call "make" then "make run"
+
+MatrixLib (individual project) - library in C for working with matrices. Available functions: create, remove, comparison (eq_matrix), sum, substract, mult by number, mult by matrix, transpose,  algebraic complements, determinant, inverse matrix
