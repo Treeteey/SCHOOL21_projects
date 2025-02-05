@@ -1,0 +1,34 @@
+day06 ex06
+-- ошибка  !!!
+-- Checks for the file day06_ex06.sql
+-- - The SQL script looks like below.
+
+--         create sequence seq_person_discounts start 1;
+--         alter table person_discounts alter column id set default nextval('seq_person_discounts');
+--         select setval('seq_person_discounts', (select count(*)+1 from person_discounts));
+
+-- - The SQL script looks like below.
+
+--       select count(*)=1 as check1,
+--           max("start_value") = 1 as check2,
+--           max("last_value") > 5 as check3
+--       from pg_sequences
+--       where sequencename  = 'seq_person_discounts'                     
+
+-- - The result is below (raw ordering should be the same like below)
+
+--     "true" "true" "true"
+
+
+
+day06 ex04 
+
+     select count(*) = 4 as check
+      from pg_constraint
+      where conname in ('ch_nn_person_id','ch_nn_pizzeria_id','ch_nn_discount','ch_range_discount')	
+
+      select column_default::integer = 0 as check
+      from information_schema.columns
+      where column_name = 'discount' and table_name = 'person_discounts'          
+
+должны выдать true!!!!
