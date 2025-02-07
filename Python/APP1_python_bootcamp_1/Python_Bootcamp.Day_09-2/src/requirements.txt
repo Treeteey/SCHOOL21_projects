@@ -1,0 +1,5 @@
+setuptools
+python-dev-tools (windows)
+build
+Microsoft Visual Studio 2022
+cython

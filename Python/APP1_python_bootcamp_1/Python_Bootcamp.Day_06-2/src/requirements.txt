@@ -1,0 +1,6 @@
+grpcio==1.69.0
+protobuf==5.29.3
+pydantic==2.10.5
+SQLAlchemy==2.0.37
+psycopg2
+grpcio-tools

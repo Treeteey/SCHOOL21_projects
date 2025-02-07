@@ -1,0 +1,7 @@
+﻿EX01.is\_replicant\_2v
+=======================================
+
+.. automodule:: EX01.is_replicant_2v
+    :members:
+    :undoc-members:
+    :show-inheritance:

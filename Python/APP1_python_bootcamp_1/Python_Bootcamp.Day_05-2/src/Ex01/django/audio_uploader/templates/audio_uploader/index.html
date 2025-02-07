@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio File Uploader</title>
+    <style>
+        /* Full-page container */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+            background-color: #f4f4f9; /* Optional: light background for contrast */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Main container */
+        .main-container {
+            text-align: center; /* Center text inside the form */
+            width: 1200px; /* Adjust width for the content */
+            background-color: #ffffff; /* Optional: White background */
+            border-radius: 8px; /* Rounded corners for the container */
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for better appearance */
+        }
+
+        /* Scrollable container for audio files */
+        .audio-list-container {
+            width: 100%; /* Use full width of the main container */
+            height: 400px; /* Fixed height */
+            overflow-y: auto; /* Add vertical scroll bar */
+            border: 1px solid #ccc; /* Optional: Add border for better visibility */
+            padding: 10px;
+            background-color: #f9f9f9; /* Optional: Light background */
+        }
+
+        /* Remove default list styling */
+        .audio-list-container ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Each audio item layout */
+        .audio-item {
+            display: flex;
+            align-items: center; /* Vertically align filename and audio player */
+            justify-content: space-between; /* Push the player to the right */
+            margin-bottom: 10px; /* Space between items */
+            padding: 5px;
+            border-bottom: 1px solid #ddd; /* Optional: Add bottom border for separation */
+        }
+
+        /* File info styling */
+        .file-info {
+            max-width: 70%; /* Adjust width as necessary */
+            word-wrap: break-word; /* Force line breaks for long filenames */
+        }
+
+        .filename {
+            font-weight: bold;
+        }
+
+        .filesize {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Audio player styling */
+        .audio-player audio {
+            width: 350px; /* Set a fixed width for the audio player */
+        }
+    </style>
+</head>
+<body>
+    <!-- Заголовок: "Audio File Uploader". -->
+    <div class="main-container">
+        <!-- Контейнер для формы загрузки и списка файлов. -->
+        <h1>Audio File Uploader</h1>
+        <!-- Данные загружаются на сервер через POST-запрос. -->
+        <!-- enctype="multipart/form-data": Говорит браузеру, что форма будет отправлять файлы. -->
+        <form method="post" enctype="multipart/form-data" id="file-upload-form">
+            <!-- {% csrf_token %} используется в Django для защиты от CSRF-атак. -->
+            {% csrf_token %}
+            <!-- Элемент <input type="file"> позволяет выбрать файл на компьютере пользователя. -->
+            <input type="file" name="file" id="file-input" onchange="uploadFile()">
+            <!-- Кнопка "Upload" скрыта с помощью style="display: none;" -->
+            <!-- Загрузка файла инициируется автоматически через функцию JavaScript при выборе файла. -->
+            <button type="submit" id="upload-button" style="display: none;">Upload</button>
+            <!-- Если на сервере при загрузке произошла ошибка, она будет отображена в <span>  -->
+            <!-- (например, файл слишком большой или неправильного типа). -->
+            {% if error %}
+                <span style="color: red">{{ error }}</span>
+            {% endif %}
+        </form>
+
+        <!-- Scrollable Container -->
+        <div class="audio-list-container">
+            <ul>
+                <!-- Сервер передаёт список файлов в переменной audio_files. -->
+                <!-- Каждый файл отображается как элемент списка <li>. -->
+                {% if audio_files %}
+                    {% for audio_file in audio_files %}
+                        <li class="audio-item">
+                            <div class="file-info">
+                                <span class="filename">{{ audio_file.filename }}</span>
+                                <span class="filesize">({{ audio_file.file.size }} bytes)</span>
+                            </div>
+                            <!-- Используется элемент <audio> с кнопками управления (controls),  -->
+                            <!-- чтобы воспроизводить аудиофайлы прямо на странице. -->
+                            <div class="audio-player">
+                                <audio controls>
+                                    <!-- Источник аудио: {{ audio_file.file.url }}, передаваемый сервером. -->
+                                    <source src="{{ audio_file.file.url }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <!-- Если audio_files пустой, отображается сообщение: "No audio files uploaded yet." -->
+                    <li>No audio files uploaded yet.</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Скрипт загрузки файла -->
+    <!-- Скрипт автоматически отправляет форму, как только пользователь выбирает файл -->
+    <!-- Это связано с событием onchange в поле загрузки -->
+    <script>
+        function uploadFile() {
+            // После выбора файла скрипт вызывает метод .submit() формы
+            document.getElementById("file-upload-form").submit();
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- Полный цикл работы
+1. Выбор файла:
+Пользователь нажимает на <input type="file"> и выбирает аудиофайл.
+Скрипт uploadFile() автоматически отправляет файл на сервер.
+2. Загрузка на сервер:
+Форма отправляется с файлом через POST-запрос.
+Сервер обрабатывает файл (например, сохраняет его в папке, проверяет размер, тип и т.д.).
+3. Обновление списка файлов:
+После успешной загрузки сервер возвращает обновлённый список файлов.
+Шаблон рендерится заново, показывая новый файл в списке.
+4. Просмотр загруженных файлов:
+Пользователь видит список загруженных файлов с информацией (имя, размер).
+Встроенный аудиоплеер позволяет воспроизводить файлы прямо на странице. -->

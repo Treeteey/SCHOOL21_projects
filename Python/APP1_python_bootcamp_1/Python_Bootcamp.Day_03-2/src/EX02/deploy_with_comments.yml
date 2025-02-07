@@ -1,0 +1,45 @@
+- name: Task 02 - Deploy with ansible
+  hosts: hosts # can create 'inventory' file with hosts
+  become: true # sudo priveleges
+  
+  tasks:
+    # нужен доступ в интернет, чтобы скачать пакеты
+    # измени адаптер в настройках виртуалки
+    - name: install python3
+      apt:
+        name: python3
+        state: present
+        update_cache: yes
+      become: true 
+      ignore_errors: yes # to skip errors and continue
+    - name: install nginx
+      apt:
+        name: nginx
+        state: present
+      ignore_errors: yes # to skip errors and continue
+
+    - name: Create directory
+      file:
+        path: /home/user/fsociety
+        state: directory
+        owner: user
+        group: user
+        mode: '0755'
+
+    - name: Copy consumer.py
+      copy:
+        src: /home/user/fsociety/exploit.py
+        dest: /home/user/fsociety/exploit.py
+
+    - name: Copy consumer.py
+      copy:
+        src: /home/user/fsociety/consumer.py
+        dest: /home/user/fsociety/consumer.py
+      
+    - name: Run exploit.py
+      raw: python3 /home/user/fsociety/exploit.py
+      ignore_errors: yes # to skip errors and continue
+
+    - name: Run consumer.py
+      raw: python3 /home/user/fsociety/consumer.py
+      ignore_errors: yes # to skip errors and continue

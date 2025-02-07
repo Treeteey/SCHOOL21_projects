@@ -1,0 +1,3 @@
+1. wsgi  - preinstalled
+2. requests 
+3. Django

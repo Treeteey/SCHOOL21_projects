@@ -1,0 +1,35 @@
+- become: true
+  hosts: hosts
+  name: Task 02 - Deploy with ansible
+  tasks:
+  - apt:
+      name: python3
+      state: present
+      update_cache: 'yes'
+    name: install python3
+  - apt:
+      name: nginx
+      state: present
+      update_cache: 'yes'
+    name: install nginx
+  - file:
+      group: user
+      mode: '0755'
+      owner: user
+      path: /home/user/fsociety
+      state: directory
+    name: Create directory
+  - copy:
+      dest: /home/user/fsociety/exploit.py
+      src: exploit.py
+    name: Copy exploit.py
+  - copy:
+      dest: /home/user/fsociety/consumer.py
+      src: consumer.py
+    name: Copy consumer.py
+  - ignore_errors: true
+    name: Run exploit.py
+    raw: python3 /home/user/fsociety/exploit.py
+  - ignore_errors: true
+    name: Run consumer.py
+    raw: python3 /home/user/fsociety/consumer.py

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio File Uploader</title>
+    <style>
+        /* Full-page container */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+            background-color: #f4f4f9; /* Optional: light background for contrast */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Main container */
+        .main-container {
+            text-align: center; /* Center text inside the form */
+            width: 1200px; /* Adjust width for the content */
+            background-color: #ffffff; /* Optional: White background */
+            border-radius: 8px; /* Rounded corners for the container */
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for better appearance */
+        }
+
+        /* Scrollable container for audio files */
+        .audio-list-container {
+            width: 100%; /* Use full width of the main container */
+            height: 400px; /* Fixed height */
+            overflow-y: auto; /* Add vertical scroll bar */
+            border: 1px solid #ccc; /* Optional: Add border for better visibility */
+            padding: 10px;
+            background-color: #f9f9f9; /* Optional: Light background */
+        }
+
+        /* Remove default list styling */
+        .audio-list-container ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Each audio item layout */
+        .audio-item {
+            display: flex;
+            align-items: center; /* Vertically align filename and audio player */
+            justify-content: space-between; /* Push the player to the right */
+            margin-bottom: 10px; /* Space between items */
+            padding: 5px;
+            border-bottom: 1px solid #ddd; /* Optional: Add bottom border for separation */
+        }
+
+        /* File info styling */
+        .file-info {
+            max-width: 70%; /* Adjust width as necessary */
+            word-wrap: break-word; /* Force line breaks for long filenames */
+        }
+
+        .filename {
+            font-weight: bold;
+        }
+
+        .filesize {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Audio player styling */
+        .audio-player audio {
+            width: 350px; /* Set a fixed width for the audio player */
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Audio File Uploader</h1>
+        <form method="post" enctype="multipart/form-data" id="file-upload-form">
+            {% csrf_token %}
+            <input type="file" name="file" id="file-input" onchange="uploadFile()">
+            <button type="submit" id="upload-button" style="display: none;">Upload</button>
+            {% if error %}
+                <span style="color: red">{{ error }}</span>
+            {% endif %}
+        </form>
+
+        <!-- Scrollable Container -->
+        <div class="audio-list-container">
+            <ul>
+                {% if audio_files %}
+                    {% for audio_file in audio_files %}
+                        <li class="audio-item">
+                            <div class="file-info">
+                                <span class="filename">{{ audio_file.filename }}</span>
+                                <span class="filesize">({{ audio_file.file.size }} bytes)</span>
+                            </div>
+                            <div class="audio-player">
+                                <audio controls>
+                                    <source src="{{ audio_file.file.url }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No audio files uploaded yet.</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function uploadFile() {
+            document.getElementById("file-upload-form").submit();
+        }
+    </script>
+</body>
+</html>
