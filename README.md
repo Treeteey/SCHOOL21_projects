@@ -2,14 +2,14 @@
 
 |Language|  Project | What's Done | Description |
 |----|---------|-------------|-------------|
-|C | Math (group project) | All trigonometry | Standard library functions |
-|C | String (group project) | memchr, memset, strchr, strpbrk, strrchr, strstr, strtok | Standard library functions |
-|C | Decimal (group project) | All functions except few corrections, tests and makefile | Library for +- 1*10e-28... 2e96-1 numbers with high precision, work with bitwise operations |
-|Bash | Cat/Grep (individual project) | Bash standard commands and work with flags | |
-|C++ | SmartCalc (individual project) | | Requires installed Qt6 and qmake. Builds on Windows/Linux/MacOS. On Linux tested using Qt5 | Plot doesn't work correctly (works in debug mode) and expressions with X. Call "make" then "make run" ****
-|C |MatrixLib (individual project) |  |  Library in C for working with matrices. Available functions: create, remove, comparison (eq_matrix), sum, subtract, multiply by number, multiply by matrix, transpose, algebraic complements, determinant, inverse matrix |
+| C++ | 3DViewer_v2.0 (team) | loading file / OpenGL / Qt UI | Qt app for viewing .obj files, scrennshot, GIF | 
+|C++ | SmartCalc (individual) | all | Qt app with expression calculation, graph plot, deposit/credit calculator |
+| Python | AP1 Python Bootcamp 2 (individually) | all | threading, random, tabulate, asyncio, |
+| Python | APP1 Python Bootcamp 1 (individually) |all, except team_00 | decorator, OOP, BeautifulSoup, html, Redis (pubsub, DB), Ansible, wsgi, Django, threading, Protobuf, gRPC, SQL, Pydantic, sphinx, asyncio, FastAPI, C/API, ctypes, Cython, recursive web crawler (BFS, graph) |
+| SQL | SQL Bootcamp (individually) | all | работа с таблицами, данными, join'ы, функции, индексы |
+|C | Math (team) | All trigonometry | Standard library functions |
+|C | String (team) | memchr, memset, strchr, strpbrk, strrchr, strstr, strtok | Standard library functions |
+|C | Decimal (team) | All functions except few corrections, tests and makefile | Library for +- 1*10e-28... 2e96-1 numbers with high precision, work with bitwise operations |
+|C |MatrixLib (individual) |  |  Library in C for working with matrices. Available functions: create, remove, comparison (eq_matrix), sum, subtract, multiply by number, multiply by matrix, transpose, algebraic complements, determinant, inverse matrix |
 | C |Maze (team) | console UI | generating mazes with console menu/ui |
-| C++ | 3DViewer_v2.0 | loading file / OpenGL / Qt UI | app for viewing .obj files, scrennshot, GIF | 
-| SQL | SQL Bootcamp (individually) | | работа с таблицами, данными, join'ы, функции, индексы |
-| Python | Python Bootcamp 2 (individually) | | threading, random, tabulate, asyncio, |
-| Python | Python Bootcamp 1 (individually) | | 
+|Bash | Cat/Grep (individual project) | Bash standard commands and work with flags | |
