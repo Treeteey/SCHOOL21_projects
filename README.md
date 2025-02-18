@@ -4,6 +4,8 @@
 |----|---------|-------------|-------------|
 | C++ | 3DViewer_v2.0 (team) | loading file / OpenGL / Qt UI | Qt app for viewing .obj files, scrennshot, GIF | 
 |C++ | SmartCalc (individual) | all | Qt app with expression calculation, graph plot, deposit/credit calculator |
+|C++| Stl_containers (team) | set/map (tree) | standard containers like library |
+| C++ | Matrix_lib (individual) | all | Library for working with matrix | 
 | Python | AP1 Python Bootcamp 2 (individually) | all | threading, random, tabulate, asyncio, |
 | Python | APP1 Python Bootcamp 1 (individually) |all, except team_00 | decorator, OOP, BeautifulSoup, html, Redis (pubsub, DB), Ansible, wsgi, Django, threading, Protobuf, gRPC, SQL, Pydantic, sphinx, asyncio, FastAPI, C/API, ctypes, Cython, recursive web crawler (BFS, graph) |
 | SQL | SQL Bootcamp (individually) | all | работа с таблицами, данными, join'ы, функции, индексы |
